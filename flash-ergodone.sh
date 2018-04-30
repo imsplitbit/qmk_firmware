@@ -2,6 +2,9 @@
 
 SLEEP_SECS=15
 
+
+clear
+
 make ergodone:imsplitbit
 
 if [ $? -gt 0 ]
@@ -21,4 +24,12 @@ echo "Programming board, don't unplug it..."
 sleep 1
 sudo ../tkg-toolkit/linux/bin/hid_bootloader_cli -mmcu=atmega32u4 ergodone_imsplitbit.hex
 
-echo "Board reprogrammed, congrats!"
+if [ $? -gt 0 ]
+then
+    echo "Flashing failed.  FIX YO SHIT!!!"
+    exit 1
+else
+    echo "Board reprogrammed, congrats!"
+    exit 0
+fi
+
